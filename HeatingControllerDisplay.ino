@@ -1,6 +1,6 @@
 /* Arturas Pranskunas
  * This is the second part of "ESP8266 Heating pump controller & monitoring station"  project
- * The project can be found at ehelper.tk
+ * The project can be found at https://ehelper.tk/esp8266-heating-pump-controller-monitoring-station-part-2/
  * 
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
