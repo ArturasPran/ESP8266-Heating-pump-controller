@@ -44,6 +44,7 @@ const int cInterval = 60*1000;
 const int tempInterval = 10*60*1000;
 const int signalInterval = 10*60*1000;
 const int lcdInterval = 8*1000;
+const int srInterval = 5*6*1000;
 
 //Variables
 float roomtemp;
@@ -54,6 +55,7 @@ bool lcdState = true;
 unsigned long temppreviousMillis = 0;
 unsigned long previousMillis = 0;
 unsigned long lcdpreviousMillis = 0;
+unsigned long srpreviousMillis = 0;
 int displayPage;
 bool infoPage = true;
 bool error;
@@ -334,7 +336,13 @@ void mainProg(){
   // Main heating control check every 3 min. pump circulate ~18liters in 3 min.   
   if(responseReceived == true){
         heatingControl();
-        responseReceived = false;        
+        responseReceived = false;
+        //Update previous heater temperature readings with greater delay.
+        if(currentMillis - srpreviousMillis >= srInterval){
+          psupplytemp = supplytemp;
+          preturntemp = preturntemp;
+          srpreviousMillis = currentMillis;
+          }
         }
   if(lcdState == true){
       //Screen update  
@@ -368,8 +376,6 @@ void requestData(){
   struct_sendMessage sMessage;
   sMessage.request = true;
   esp_now_send(broadcastAddress, (uint8_t * ) &sMessage, sizeof(sMessage));
-  psupplytemp = supplytemp;
-  preturntemp = preturntemp;
   Serial.println("Request data: " + String(sMessage.request));
   }
     
