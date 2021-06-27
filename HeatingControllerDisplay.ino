@@ -105,6 +105,7 @@ void OnDataSent(uint8_t *mac_addr, uint8_t sendStatus) {
   else{
     Serial.println("Delivery fail");
     boolResponse = true;
+  errorMessage('R');
   }
 }
 // Callback when data is received
@@ -356,7 +357,6 @@ void mainProg(){
           displayPage++;
           }
         else if (displayPage == 2 && infoPage == true){
-          errorMessage('R');
           drawInfoTab();
           displayPage++;
           }  
