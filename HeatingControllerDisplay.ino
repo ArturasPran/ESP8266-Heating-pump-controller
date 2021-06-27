@@ -105,6 +105,7 @@ void OnDataSent(uint8_t *mac_addr, uint8_t sendStatus) {
   else{
     Serial.println("Delivery fail");
     boolResponse = true;
+  errorMessage('R');
   }
 }
 // Callback when data is received
@@ -356,7 +357,6 @@ void mainProg(){
           displayPage++;
           }
         else if (displayPage == 2 && infoPage == true){
-          errorMessage('R');
           drawInfoTab();
           displayPage++;
           }  
@@ -401,9 +401,15 @@ void heatingControl(){
   bool localPumpState = true;
   
   if(supplytemp == -127 || returntemp == -127){
-    Serial.println("Failed to retrieve data from heater sensors. Keeping pump on while the room set point is reached");
+    Serial.println("Failed to retrieve data from heater sensors. Starting alternative heating control.");
     errorMessage('S');
+  //Alternative heating control if one of temperature sensors fails to return valid reading.
+  if(roomtemp < roomSetpoint + 2.5){
     pumpControl(true);
+  }
+  else{
+    pumpControl(false);
+  }
     return;
     }
    // SafeMode
@@ -497,6 +503,3 @@ void errorMessage(char errorname){
     infoText = "- SISTEMA VEIKIA NORMALIU REZIMU.\n";  //ENG: No issues detected. System functioning normally.
     }
   }  
-  
-  
-  
