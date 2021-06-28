@@ -44,7 +44,7 @@ const int cInterval = 60*1000;
 const int tempInterval = 10*60*1000;
 const int signalInterval = 10*60*1000;
 const int lcdInterval = 8*1000;
-const int srInterval = 5*6*1000;
+const int srInterval = 5*60*1000;
 
 //Variables
 float roomtemp;
