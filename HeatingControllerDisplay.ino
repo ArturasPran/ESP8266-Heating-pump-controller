@@ -169,10 +169,10 @@ void loop() {
 
 }
 int deltaSimbol(float current, float previous){
-  if (current > previous > 0){
+  if (current - previous > 0.05){
     return 24; //↑
     }
-  else if(current < previous > 0){
+  else if(current - previous < -0.05){
     return 25; // ↓
     }
     else{
